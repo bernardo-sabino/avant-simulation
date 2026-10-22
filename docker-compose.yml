@@ -1,0 +1,23 @@
+services:
+  ros_humble:
+    build:
+      context: .
+      dockerfile: Dockerfile.humble
+      args:
+        USER_ID: ${USER_ID:-1000}
+        GROUP_ID: ${GROUP_ID:-1000}
+    user: "${USER_ID:-1000}:${GROUP_ID:-1000}"
+    network_mode: host
+    hostname: ros_humble
+    environment:
+      DISPLAY: "${DISPLAY:-:0}"
+      QT_X11_NO_MITSHM: "1"
+      XAUTHORITY: "/tmp/.docker.xauth"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /etc/localtime:/etc/localtime:ro
+      - ${XAUTHORITY:-${HOME}/.Xauthority}:/tmp/.docker.xauth:ro
+      - .:/workspace:rw
+    working_dir: /workspace
+    tty: true
+    stdin_open: true

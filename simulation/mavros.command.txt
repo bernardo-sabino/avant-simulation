@@ -1,0 +1,1 @@
+ros2 run mavros mavros_node --ros-args -p fcu_url:=udp://127.0.0.1:14550@14555 -p plugin_allowlist:="[sys_status, wp, global_position, local_position, set_point_pos, set_point_vel, safety_allowed]"
